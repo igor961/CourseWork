@@ -50,17 +50,13 @@ public class GView extends View {
     @Override
     public void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        int vertRadius = getWidth() / 25;
         if (!currentMode.equals(Mode.MST_MODE)) {
             okBtn.draw(canvas);
             if (currentMode.equals(Mode.OUTPUT_MODE)) {
                 detailsBtn = new DetailsButton(getResources(), R.mipmap.ic_details, null, getWidth(), getHeight());
                 detailsBtn.draw(canvas);
             }
-            int vertRadius = getWidth() / 25;
-            if (vertices.size() > 0)
-                for (Vertex v : vertices) {
-                    v.draw(canvas, vertRadius);
-                }
             if (currentMode == Mode.OUTPUT_MODE && (edges.size() > 0)) {
                 for (Edge e : edges) {
                     if (oriented)
@@ -69,17 +65,17 @@ public class GView extends View {
                 }
             }
         } else {
-            int vertRadius = getWidth() / 25;
-            if (vertices.size() > 0)
-                for (Vertex v : vertices) {
-                    v.draw(canvas, vertRadius);
-                }
+
             for (Edge e : mstEdges) {
                 if (oriented)
                     e.drawOriented(canvas, vertRadius, showTextLabels);
                 else e.draw(canvas, vertRadius, showTextLabels);
             }
         }
+        if (vertices.size() > 0)
+            for (Vertex v : vertices) {
+                v.draw(canvas, vertRadius);
+            }
     }
 
     @Override
